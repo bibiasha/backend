@@ -1,0 +1,30 @@
+runtime: nodejs22
+
+instance_class: F2  # Adjust as necessary (optional)
+env_variables:
+  NODE_ENV: production
+  DB_HOST: /cloudsql/darshan-elders-care:asia-south1:darshan-24
+  DB_USER: root
+  DB_PASSWORD: AMVishwas2001
+  DB_NAME:  authectication
+
+automatic_scaling:
+  min_idle_instances: 1
+  max_idle_instances: 2
+
+# # Uncomment if you want to add a health check
+# liveness_check:
+#   path: /health
+#   timeout: 4s
+#   failure_threshold: 2
+#   # Note: 'check_interval' is not supported in the standard environment
+
+handlers:
+  # Serve static assets (CSS, JS, images)
+  - url: /static
+    static_dir: static
+
+  # Catch-all handler for dynamic routes (API requests)
+  - url: /.*
+    script: auto
+    secure: always
